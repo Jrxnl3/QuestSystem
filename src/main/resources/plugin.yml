@@ -1,0 +1,6 @@
+name: QuestSystem
+version: ${project.version}
+main: de.jinx.questsystem.QuestSystem
+api-version: 1.16
+authors: [ Jinx_Dev ]
+description: A Quest System
