@@ -4,3 +4,7 @@ main: de.jinx.questsystem.QuestSystem
 api-version: 1.16
 authors: [ Jinx_Dev ]
 description: A Quest System
+
+commands:
+   npc:
+     usage: Spawning a Villager
