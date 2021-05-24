@@ -14,7 +14,6 @@ public class SpawnNPC implements CommandExecutor {
                 Player player = (Player) sender;
                 if(args.length == 0) {
                     QuestVillager questNPC = new QuestVillager(player.getLocation());
-
                     return true;
                 }
             }

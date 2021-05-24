@@ -1,6 +1,5 @@
 package de.jinx.questsystem.objects;
 
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,26 +13,20 @@ public class Quest {
     Object questType;
 
     int coinReward;
-    ItemStack[] rewards;
+    ItemStack[] lootTable;
 
-    public Quest(String title, String lore, ItemStack item, ItemMeta itemMeta, Object questType, int coinReward, ItemStack[] rewards) {
+    public Quest(String title, String lore, ItemStack item, Object questType, int coinReward, ItemStack[] lootTable) {
         this.title = title;
-        this.lore = lore;
-        this.item = item;
-        this.itemMeta = itemMeta;
-        this.questType = questType;
-        this.coinReward = coinReward;
-        this.rewards = rewards;
-    }
 
-    public Quest(String title, String lore, ItemStack item, Object questType, int coinReward, ItemStack[] rewards) {
-        this.title = title;
         this.lore = lore;
+
         this.item = item;
         this.itemMeta = item.getItemMeta();
+
         this.questType = questType;
+
         this.coinReward = coinReward;
-        this.rewards = rewards;
+        this.lootTable = lootTable;
     }
 
 
@@ -61,8 +54,8 @@ public class Quest {
         return coinReward;
     }
 
-    public ItemStack[] getRewards() {
-        return rewards;
+    public ItemStack[] getLootTable() {
+        return lootTable;
     }
 
     public void setTitle(String title) {
@@ -89,8 +82,8 @@ public class Quest {
         this.coinReward = coinReward;
     }
 
-    public void setRewards(ItemStack[] rewards) {
-        this.rewards = rewards;
+    public void setLootTable(ItemStack[] lootTable) {
+        this.lootTable = lootTable;
     }
 
 }
