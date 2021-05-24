@@ -1,8 +1,9 @@
 package de.jinx.questsystem.handlers;
 
 import de.jinx.questsystem.objects.Quest;
-import de.jinx.questsystem.objects.QuestType;
+import de.jinx.questsystem.objects.QuestTypes.HuntingType;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -12,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class NPCHandler implements Listener {
 
-    Quest kill = new Quest("Monsterslayer","Kill 10 Mobs", new ItemStack(Material.WOODEN_AXE),QuestType.HUNTING, 60, null);
+    Quest kill = new Quest("Monsterslayer","Kill 10 Mobs", new ItemStack(Material.WOODEN_AXE),new HuntingType(10, EntityType.VILLAGER), 60, null);
 
     @EventHandler
     public void interact(PlayerInteractAtEntityEvent event){

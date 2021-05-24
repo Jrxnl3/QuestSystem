@@ -11,14 +11,12 @@ public class Quest {
     ItemStack item;
     ItemMeta itemMeta;
 
-    QuestType questType;
+    Object questType;
 
     int coinReward;
     ItemStack[] rewards;
 
-    boolean completed;
-
-    public Quest(String title, String lore, ItemStack item, ItemMeta itemMeta, QuestType questType, int coinReward, ItemStack[] rewards,boolean completed) {
+    public Quest(String title, String lore, ItemStack item, ItemMeta itemMeta, Object questType, int coinReward, ItemStack[] rewards) {
         this.title = title;
         this.lore = lore;
         this.item = item;
@@ -26,10 +24,9 @@ public class Quest {
         this.questType = questType;
         this.coinReward = coinReward;
         this.rewards = rewards;
-        this.completed = completed;
     }
 
-    public Quest(String title, String lore, ItemStack item, QuestType questType, int coinReward, ItemStack[] rewards) {
+    public Quest(String title, String lore, ItemStack item, Object questType, int coinReward, ItemStack[] rewards) {
         this.title = title;
         this.lore = lore;
         this.item = item;
@@ -37,18 +34,6 @@ public class Quest {
         this.questType = questType;
         this.coinReward = coinReward;
         this.rewards = rewards;
-        this.completed = false;
-    }
-
-    public Quest(String title, String lore, ItemStack item, ItemMeta itemMeta, QuestType questType, int coinReward, ItemStack[] rewards) {
-        this.title = title;
-        this.lore = lore;
-        this.item = item;
-        this.itemMeta = itemMeta;
-        this.questType = questType;
-        this.coinReward = coinReward;
-        this.rewards = rewards;
-        this.completed = false;
     }
 
 
@@ -68,7 +53,7 @@ public class Quest {
         return itemMeta;
     }
 
-    public QuestType getQuestType() {
+    public Object getQuestType() {
         return questType;
     }
 
@@ -96,7 +81,7 @@ public class Quest {
         this.itemMeta = itemMeta;
     }
 
-    public void setQuestType(QuestType questType) {
+    public void setQuestType(Object questType) {
         this.questType = questType;
     }
 
@@ -108,7 +93,4 @@ public class Quest {
         this.rewards = rewards;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
 }
