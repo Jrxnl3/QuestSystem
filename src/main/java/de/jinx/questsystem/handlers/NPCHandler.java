@@ -1,7 +1,10 @@
 package de.jinx.questsystem.handlers;
 
+import de.jinx.questsystem.QuestSystem;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.HuntingType;
+import de.jinx.questsystem.objects.QuestTypes.Type;
+import de.jinx.questsystem.objects.QuestTypes.TypeEnums;
 import de.jinx.questsystem.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -14,11 +17,28 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public class NPCHandler implements Listener {
 
     public static ItemStack[] standartLootTable = {new ItemBuilder(Material.STICK).build(),new ItemBuilder(Material.STONE).build(),new ItemBuilder(Material.DIRT).build()};
 
     Quest kill = new Quest("Monsterslayer","Kill 10 Zombies", new ItemStack(Material.WOODEN_AXE),new HuntingType(10,0,EntityType.ZOMBIE), 60, standartLootTable);
+
+    public List<Quest> typeList(TypeEnums typeEnums,Player player){
+        List<Quest> genericList = null;
+
+        for (Quest quest: QuestSystem.getQuestSystem().activQuests.get(player.getUniqueId())) {
+            if (quest.getQuestType() == typeEnums){
+                if(genericList.equals(null))
+                    genericList.set(0,quest);
+                else
+                    genericList.add(quest);
+            }
+        }
+
+        return genericList;
+    }
 
     @EventHandler
     public void interact(PlayerInteractAtEntityEvent event){
@@ -30,13 +50,16 @@ public class NPCHandler implements Listener {
             event.setCancelled(true);
 
             Player p = event.getPlayer();
-
+            //OPTIC
             p.sendMessage(kill.getTitle());
             p.sendMessage(kill.getLore());
-            p.sendMessage(kill.getItem().toString());
-            p.sendMessage(kill.getItemMeta().toString());
+            //ITEM
+            p.sendMessage(kill.getDisplayItem().toString());
+            p.sendMessage(kill.getDisplayItemMeta().toString());
+            //QUEST TYPE
             HuntingType type = (HuntingType) kill.getQuestType();
             p.sendMessage(type.getMobToKill().getName());
+            //LOOT
             p.sendMessage(String.valueOf(kill.getCoinReward()));
             p.sendMessage(kill.getLootTable().toString());
         }
@@ -46,23 +69,37 @@ public class NPCHandler implements Listener {
     public void onKill(EntityDeathEvent e){
         if(!(e.getEntity().getKiller() instanceof Player)) return;
 
-        Player player = (Player) e.getEntity().getKiller();
+        Player player = e.getEntity().getKiller();
         Entity victim = e.getEntity();
 
-        //Liste nur mit HuntingTypes
 
-        HuntingType type = (HuntingType) kill.getQuestType();
+        List<Quest> huntingList = typeList(TypeEnums.HUNTING,player);
+/*
+        for (Quest quest: QuestSystem.getQuestSystem().activQuests.get(player.getUniqueId())) {
+            if (quest.getQuestType() == TypeEnums.HUNTING){
+                if(huntingList.equals(null))
+                    huntingList.set(0,quest);
+                else
+                    huntingList.add(quest);
+            }
+        }
+        */
 
-        if(type.getMobToKill() == victim.getType()) {
-            type.setCurrentCount(type.getCurrentCount() + 1);
-            player.sendMessage("Goal: ("+ type.getCurrentCount()+"/"+type.getMaxCount()+")");
+        for (Quest quest: huntingList) {
+            HuntingType type = (HuntingType) quest.getQuestType();
 
+            if (type.getMobToKill() == victim.getType()) {
+                type.setCurrentCount(type.getCurrentCount() + 1);
+                player.sendMessage("Goal: (" + type.getCurrentCount() + "/" + type.getMaxCount() + ")");
+            }
         }
     }
 
     @EventHandler
     public void onCraft(InventoryClickEvent e){
         Player player = (Player) e.getWhoClicked();
+
+
 
         if(e.getSlotType() == InventoryType.SlotType.RESULT){
             ItemStack item = e.getCurrentItem();

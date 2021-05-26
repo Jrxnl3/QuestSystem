@@ -1,29 +1,37 @@
 package de.jinx.questsystem.objects;
 
+import de.jinx.questsystem.objects.QuestTypes.Type;
+import de.jinx.questsystem.objects.QuestTypes.TypeEnums;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import java.util.Arrays;
 
-public class Quest {
+public class Quest <T extends Type>{
 
     String title;
     String lore;
-    ItemStack item;
-    ItemMeta itemMeta;
 
-    Object questType;
+    ItemStack displayItem;
+    ItemMeta displayItemMeta;
+
+    T questType;
+    TypeEnums type;
 
     int coinReward;
     ItemStack[] lootTable;
 
-    public Quest(String title, String lore, ItemStack item, Object questType, int coinReward, ItemStack[] lootTable) {
+    public Quest(String title, String lore, ItemStack displayItem, T questType, int coinReward, ItemStack[] lootTable) {
         this.title = title;
 
         this.lore = lore;
 
-        this.item = item;
-        this.itemMeta = item.getItemMeta();
+        this.displayItem = displayItem;
+        this.displayItemMeta = displayItem.getItemMeta();
+        this.displayItemMeta.setDisplayName(title);
+        this.displayItemMeta.setLore(Arrays.asList(lore));
 
         this.questType = questType;
+        this.type = questType.getEnumType();
 
         this.coinReward = coinReward;
         this.lootTable = lootTable;
@@ -38,12 +46,12 @@ public class Quest {
         return lore;
     }
 
-    public ItemStack getItem() {
-        return item;
+    public ItemStack getDisplayItem() {
+        return displayItem;
     }
 
-    public ItemMeta getItemMeta() {
-        return itemMeta;
+    public ItemMeta getDisplayItemMeta() {
+        return displayItemMeta;
     }
 
     public Object getQuestType() {
@@ -66,16 +74,12 @@ public class Quest {
         this.lore = lore;
     }
 
-    public void setItem(ItemStack item) {
-        this.item = item;
+    public void setDisplayItem(ItemStack displayItem) {
+        this.displayItem = displayItem;
     }
 
-    public void setItemMeta(ItemMeta itemMeta) {
-        this.itemMeta = itemMeta;
-    }
-
-    public void setQuestType(Object questType) {
-        this.questType = questType;
+    public void setDisplayItemMeta(ItemMeta displayItemMeta) {
+        this.displayItemMeta = displayItemMeta;
     }
 
     public void setCoinReward(int coinReward) {

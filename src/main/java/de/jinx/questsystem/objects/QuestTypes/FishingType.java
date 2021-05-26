@@ -7,12 +7,12 @@ public class FishingType extends Type{
     ItemStack fishToCaught;
 
     public FishingType(int maxCount, int currentCount,ItemStack fishToCaught) {
-        super(maxCount, currentCount);
+        super(maxCount, currentCount,TypeEnums.FISHING);
         this.fishToCaught = fishToCaught;
     }
 
     public FishingType(int maxCount, ItemStack fishToCaught) {
-        super(maxCount,0);
+        super(maxCount,0,TypeEnums.FISHING);
         this.fishToCaught = fishToCaught;
     }
 
