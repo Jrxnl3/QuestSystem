@@ -4,7 +4,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class GatheringType extends Type{
 
-    //Items müssen bei einem Interface abgegeben werden
+    //Items müssen bei einem GUI abgegeben werden!
 
     ItemStack itemToGather;
 

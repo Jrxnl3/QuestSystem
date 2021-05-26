@@ -36,7 +36,6 @@ public class NPCHandler implements Listener {
                     genericList.add(quest);
             }
         }
-
         return genericList;
     }
 
@@ -67,14 +66,15 @@ public class NPCHandler implements Listener {
 
     @EventHandler
     public void onKill(EntityDeathEvent e){
-        if(!(e.getEntity().getKiller() instanceof Player)) return;
+        if(!(e.getEntity().getKiller() instanceof Player)) return; //<-- Player is online //Vom Spieler die Quests bekommen
 
         Player player = e.getEntity().getKiller();
         Entity victim = e.getEntity();
 
 
-        List<Quest> huntingList = typeList(TypeEnums.HUNTING,player);
-/*
+        List<Quest> huntingList = typeList(TypeEnums.HUNTING,player);  //<-- For Spieler mit UUID und Hunting Quests
+
+        /*
         for (Quest quest: QuestSystem.getQuestSystem().activQuests.get(player.getUniqueId())) {
             if (quest.getQuestType() == TypeEnums.HUNTING){
                 if(huntingList.equals(null))
@@ -107,6 +107,7 @@ public class NPCHandler implements Listener {
 
         }
     }
+
     @EventHandler
     public void onFish(PlayerFishEvent e){
         if(e.getCaught() instanceof Item){
