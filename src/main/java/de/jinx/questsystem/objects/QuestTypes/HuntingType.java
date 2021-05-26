@@ -7,12 +7,12 @@ public class HuntingType extends Type{
     EntityType mobToKill;
 
     public HuntingType(int maxCount, int currentCount, EntityType mobToKill) {
-        super(maxCount,currentCount,TypeEnums.HUNTING);
+        super(maxCount,currentCount);
         this.mobToKill = mobToKill;
     }
 
     public HuntingType(int maxCount,EntityType mobToKill) {
-        super(maxCount,0,TypeEnums.HUNTING);
+        super(maxCount,0);
         this.mobToKill = mobToKill;
     }
 

@@ -17,23 +17,27 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class NPCHandler implements Listener {
 
     public static ItemStack[] standartLootTable = {new ItemBuilder(Material.STICK).build(),new ItemBuilder(Material.STONE).build(),new ItemBuilder(Material.DIRT).build()};
 
-    Quest kill = new Quest("Monsterslayer","Kill 10 Zombies", new ItemStack(Material.WOODEN_AXE),new HuntingType(10,0,EntityType.ZOMBIE), 60, standartLootTable);
+    Quest kill = new Quest("Monsterslayer","Kill 10 Zombies", new ItemStack(Material.WOODEN_AXE),new HuntingType(10,0,EntityType.ZOMBIE),TypeEnums.HUNTING ,60, standartLootTable);
 
-    public List<Quest> typeList(TypeEnums typeEnums,Player player){
-        List<Quest> genericList = null;
+    public ArrayList<Quest> typeList(TypeEnums typeEnums, Player player){
+        ArrayList<Quest> genericList = new ArrayList<>();
 
-        for (Quest quest: QuestSystem.getQuestSystem().activQuests.get(player.getUniqueId())) {
-            if (quest.getQuestType() == typeEnums){
-                if(genericList.equals(null))
-                    genericList.set(0,quest);
-                else
-                    genericList.add(quest);
+        for (Quest quest: QuestSystem.getQuestSystem().activQuestMultiMap.get(player.getUniqueId())) {
+            System.out.println(quest.getQuestType());
+            System.out.println(typeEnums);
+
+            if (quest.getType() == typeEnums){
+
+                genericList.add(quest);
+                System.out.println("Added Quest: " + quest);
             }
         }
         return genericList;
@@ -56,6 +60,9 @@ public class NPCHandler implements Listener {
             p.sendMessage(kill.getDisplayItem().toString());
             p.sendMessage(kill.getDisplayItemMeta().toString());
             //QUEST TYPE
+
+            p.sendMessage("&6Type: " + kill.getType());
+
             HuntingType type = (HuntingType) kill.getQuestType();
             p.sendMessage(type.getMobToKill().getName());
             //LOOT
@@ -72,7 +79,8 @@ public class NPCHandler implements Listener {
         Entity victim = e.getEntity();
 
 
-        List<Quest> huntingList = typeList(TypeEnums.HUNTING,player);  //<-- For Spieler mit UUID und Hunting Quests
+        ArrayList<Quest> huntingList = typeList(TypeEnums.HUNTING,player);  //<-- For Spieler mit UUID und Hunting Quests
+
 
         /*
         for (Quest quest: QuestSystem.getQuestSystem().activQuests.get(player.getUniqueId())) {

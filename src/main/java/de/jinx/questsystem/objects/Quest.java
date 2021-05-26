@@ -20,7 +20,7 @@ public class Quest <T extends Type>{
     int coinReward;
     ItemStack[] lootTable;
 
-    public Quest(String title, String lore, ItemStack displayItem, T questType, int coinReward, ItemStack[] lootTable) {
+    public Quest(String title, String lore, ItemStack displayItem, T questType, TypeEnums typeEnums, int coinReward, ItemStack[] lootTable) {
         this.title = title;
 
         this.lore = lore;
@@ -31,12 +31,15 @@ public class Quest <T extends Type>{
         this.displayItemMeta.setLore(Arrays.asList(lore));
 
         this.questType = questType;
-        this.type = questType.getEnumType();
+        this.type = typeEnums;
 
         this.coinReward = coinReward;
         this.lootTable = lootTable;
     }
 
+    public TypeEnums getType() {
+        return type;
+    }
 
     public String getTitle() {
         return title;

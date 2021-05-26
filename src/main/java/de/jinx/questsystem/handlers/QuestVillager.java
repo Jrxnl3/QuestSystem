@@ -14,7 +14,6 @@ public class QuestVillager {
 
     public QuestVillager(Location loc){
         Villager questNPC = (Villager) loc.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        questNPC.setProfession(Villager.Profession.LIBRARIAN);
 
         //COSMETIC
         questNPC.setVillagerExperience(5); // LEVEL EVENTUELL ÄNDERN
@@ -26,7 +25,7 @@ public class QuestVillager {
         questNPC.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,Integer.MAX_VALUE,500));
 
         //Playing Particel
-        questNPC.getWorld().playEffect(questNPC.getLocation(), Effect.MOBSPAWNER_FLAMES,4);
+        questNPC.getWorld().playEffect(questNPC.getLocation(), Effect.MOBSPAWNER_FLAMES,10);
     }
 
 

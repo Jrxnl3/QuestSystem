@@ -7,12 +7,12 @@ public class CraftingType extends Type{
     ItemStack itemToCraft;
 
     public CraftingType(int maxCount, int currentCount,ItemStack itemToCraft) {
-        super(maxCount, currentCount,TypeEnums.CRAFTING);
+        super(maxCount, currentCount);
         this.itemToCraft = itemToCraft;
     }
 
     public CraftingType(int maxCount,ItemStack itemToCraft) {
-        super(maxCount,0,TypeEnums.CRAFTING);
+        super(maxCount,0);
         this.itemToCraft = itemToCraft;
     }
 

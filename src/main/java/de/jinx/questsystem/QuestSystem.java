@@ -1,45 +1,53 @@
 package de.jinx.questsystem;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import de.jinx.questsystem.command.SpawnNPC;
 import de.jinx.questsystem.handlers.NPCHandler;
 import de.jinx.questsystem.objects.Quest;
-import de.jinx.questsystem.objects.QuestTypes.CraftingType;
-import de.jinx.questsystem.objects.QuestTypes.FishingType;
-import de.jinx.questsystem.objects.QuestTypes.GatheringType;
-import de.jinx.questsystem.objects.QuestTypes.HuntingType;
+import de.jinx.questsystem.objects.QuestTypes.*;
 import de.jinx.questsystem.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public final class QuestSystem extends JavaPlugin {
 
     private static QuestSystem questSystem;
 
-    public HashMap<UUID, List<Quest>> activQuests;
+    //public HashMap<UUID, ArrayList<Quest>> activQuests;
+
+    public Multimap<UUID,Quest> activQuestMultiMap;
 
     //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST Object[sonst einzel speichern])
 
     private void fillHashMap(){
-        activQuests.put(UUID.fromString("Spieler1"), questToArray(new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER),10,NPCHandler.standartLootTable)));
-        activQuests.put(UUID.fromString("Spieler2"), questToArray(new Quest("Pumpkinfan","Gather 10 Pumpkins",new ItemStack(Material.PUMPKIN),new GatheringType(10, new ItemStack(Material.PUMPKIN)),5,NPCHandler.standartLootTable)));
-        activQuests.put(UUID.fromString("Spieler3"), questToArray(new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)),6,NPCHandler.standartLootTable)));
-        activQuests.put(UUID.fromString("Spieler4"), questToArray(new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)),7,NPCHandler.standartLootTable)));
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), TypeEnums.HUNTING,10,NPCHandler.standartLootTable));
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest(
+                "Pumpkinfan", //<-- Title
+                "Gather 10 Pumpkins", //<-- Lore
+                new ItemStack(Material.PUMPKIN), //<-- DisplayItem
+                new GatheringType( //<--Type
+                        10, //<--Wie oft?
+                        new ItemStack(Material.PUMPKIN)), //<-- Item to "Hunt"
+                TypeEnums.GATHERING, //<-- Enum Type
+                5, //<-- Coin Reward
+                NPCHandler.standartLootTable)); //<-- LootTable
+
+
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), TypeEnums.FISHING,6,NPCHandler.standartLootTable));
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)), TypeEnums.CRAFTING,7,NPCHandler.standartLootTable));
     }
 
-    public static List<Quest> questToArray(Quest quest){
-        return Arrays.asList(quest);
-    }
 
 
     @Override
     public void onEnable() {
+
+        activQuestMultiMap = ArrayListMultimap.create();
 
         fillHashMap();
 
