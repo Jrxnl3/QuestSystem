@@ -1,7 +1,7 @@
 package de.jinx.questsystem.objects;
 
 import de.jinx.questsystem.objects.QuestTypes.Type;
-import de.jinx.questsystem.objects.QuestTypes.TypeEnums;
+import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
@@ -15,12 +15,12 @@ public class Quest <T extends Type>{
     ItemMeta displayItemMeta;
 
     T questType;
-    TypeEnums type;
+    QuestTypeEnums type;
 
     int coinReward;
     ItemStack[] lootTable;
 
-    public Quest(String title, String lore, ItemStack displayItem, T questType, TypeEnums typeEnums, int coinReward, ItemStack[] lootTable) {
+    public Quest(String title, String lore, ItemStack displayItem, T questType, QuestTypeEnums questTypeEnums, int coinReward, ItemStack[] lootTable) {
         this.title = title;
 
         this.lore = lore;
@@ -31,13 +31,13 @@ public class Quest <T extends Type>{
         this.displayItemMeta.setLore(Arrays.asList(lore));
 
         this.questType = questType;
-        this.type = typeEnums;
+        this.type = questTypeEnums;
 
         this.coinReward = coinReward;
         this.lootTable = lootTable;
     }
 
-    public TypeEnums getType() {
+    public QuestTypeEnums getEnumType() {
         return type;
     }
 

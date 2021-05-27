@@ -1,6 +1,6 @@
 package de.jinx.questsystem.objects.QuestTypes;
 
-public enum TypeEnums {
+public enum QuestTypeEnums {
     CRAFTING,
     FISHING,
     GATHERING,

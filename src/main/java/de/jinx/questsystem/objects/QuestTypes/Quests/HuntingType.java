@@ -1,8 +1,9 @@
-package de.jinx.questsystem.objects.QuestTypes;
+package de.jinx.questsystem.objects.QuestTypes.Quests;
 
+import de.jinx.questsystem.objects.QuestTypes.Type;
 import org.bukkit.entity.EntityType;
 
-public class HuntingType extends Type{
+public class HuntingType extends Type {
 
     EntityType mobToKill;
 

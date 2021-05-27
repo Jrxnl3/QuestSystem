@@ -1,8 +1,9 @@
-package de.jinx.questsystem.objects.QuestTypes;
+package de.jinx.questsystem.objects.QuestTypes.Quests;
 
+import de.jinx.questsystem.objects.QuestTypes.Type;
 import org.bukkit.inventory.ItemStack;
 
-public class CraftingType extends Type{
+public class CraftingType extends Type {
 
     ItemStack itemToCraft;
 
