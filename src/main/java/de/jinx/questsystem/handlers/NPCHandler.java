@@ -7,8 +7,11 @@ import de.jinx.questsystem.objects.QuestTypes.Quests.FishingType;
 import de.jinx.questsystem.objects.QuestTypes.Quests.GatheringType;
 import de.jinx.questsystem.objects.QuestTypes.Quests.HuntingType;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
+import de.jinx.questsystem.objects.QuestTypes.Type;
 import de.jinx.questsystem.util.ItemBuilder;
+import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +22,6 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -38,7 +40,8 @@ public class NPCHandler implements Listener {
         }
         return genericList;
     }
-        public boolean hasActiveQuest(UUID playerUUID){
+
+    public boolean hasActiveQuest(UUID playerUUID){
         if(QuestSystem.getQuestSystem().activQuestMultiMap.get(playerUUID).size() >= 1){
             return true;    //Wenn in der Liste = true
         }else
@@ -52,6 +55,17 @@ public class NPCHandler implements Listener {
             }
         }
         return false;   //Falls es keine gibt wird am Ende erst return.
+    }
+
+    public <T extends Type> void questCurrent(T questType, Player player){
+        if(questType.getCurrentCount() < questType.getMaxCount()){
+            questType.setCurrentCount(questType.getCurrentCount() + 1);
+            player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
+        }else {
+            player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 5);
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- FINAL QUEST COMPLETE HERE
+            player.sendMessage("You completed a Quest! :)");
+        }
     }
 
     @EventHandler
@@ -97,6 +111,7 @@ public class NPCHandler implements Listener {
 
 
     //<!-- WAS IST WENN 2 SPIELER DAS EVENT GLEICHZEITIG AUSFÜHREN --!>
+    //<!-- SPIELER BEI QUEST IN ARRAYLIST BEI EVENT ABFRAGEN OB SPIELER IN ARRAYLIST?? (PERFORMANCE)--!>
     @EventHandler
     public void onKill(EntityDeathEvent e){
         if(!(e.getEntity().getKiller() instanceof Player)) return; //<-- Player is online
@@ -124,25 +139,52 @@ public class NPCHandler implements Listener {
 
     @EventHandler
     public void onCraft(InventoryClickEvent e){
+        if(!(e.getSlotType() == InventoryType.SlotType.RESULT)) return;
+
         Player player = (Player) e.getWhoClicked();
 
-        if(e.getSlotType() == InventoryType.SlotType.RESULT){
-            ItemStack item = e.getCurrentItem();
+        if(!hasActiveQuest(player.getUniqueId())) return;
 
+        if(hasActiveQuestType(QuestTypeEnums.CRAFTING,player.getUniqueId())) return;
 
+        ItemStack item = e.getCurrentItem();
+
+        ArrayList<Quest> craftingTypeList = typeList(QuestTypeEnums.CRAFTING,player.getUniqueId());
+
+        for (Quest quest: craftingTypeList) {
+
+            CraftingType craftingType = (CraftingType) quest.getQuestType();
+
+            if (craftingType.getItemToCraft().getType() == item.getType()) {
+                questCurrent(craftingType,player);
+            }
         }
     }
 
     @EventHandler
     public void onFish(PlayerFishEvent e){
-        if(e.getCaught() instanceof Item){
-            Item item = (Item) e.getCaught();
-            if(item.getItemStack().getType().equals(Material.LEGACY_RAW_FISH)){
-                ItemStack caughtFish = item.getItemStack();
+        if(!(e.getCaught() instanceof Item)) return;
+
+        Player player = e.getPlayer();
+
+        if(!hasActiveQuest(player.getUniqueId())) return;
+
+        if(hasActiveQuestType(QuestTypeEnums.FISHING,player.getUniqueId())) return;
+
+        ArrayList<Quest> fishingTypeList = typeList(QuestTypeEnums.FISHING,player.getUniqueId());
+
+        Item item = (Item) e.getCaught();
 
 
+        for (Quest quest: fishingTypeList) {
+
+            FishingType fishingType = (FishingType) quest.getQuestType();
+
+            if(item.getItemStack().getType() == fishingType.getFishToCaught().getType()){
+                questCurrent(fishingType,player);
             }
         }
+
     }
 
 }
