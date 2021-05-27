@@ -21,14 +21,12 @@ public final class QuestSystem extends JavaPlugin {
 
     private static QuestSystem questSystem;
 
-    //public HashMap<UUID, ArrayList<Quest>> activQuests;
-
     public Multimap<UUID,Quest> activQuestMultiMap;
 
-    //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST Object[sonst einzel speichern])
+    //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST Object[sonst einzel speichern. title,lore,...])
 
     private void fillHashMap(){
-        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,10,NPCHandler.standartLootTable));
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,10,NPCHandler.standardLootTable));
         activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest(
                 "Pumpkinfan", //<-- Title
                 "Gather 10 Pumpkins", //<-- Lore
@@ -38,14 +36,12 @@ public final class QuestSystem extends JavaPlugin {
                         new ItemStack(Material.PUMPKIN)), //<-- Item to "Hunt"
                 QuestTypeEnums.GATHERING, //<-- Enum Type
                 5, //<-- Coin Reward
-                NPCHandler.standartLootTable)); //<-- LootTable
+                NPCHandler.standardLootTable)); //<-- LootTable
 
 
-        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), QuestTypeEnums.FISHING,6,NPCHandler.standartLootTable));
-        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)), QuestTypeEnums.CRAFTING,7,NPCHandler.standartLootTable));
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), QuestTypeEnums.FISHING,6,NPCHandler.standardLootTable));
+        activQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)), QuestTypeEnums.CRAFTING,7,NPCHandler.standardLootTable));
     }
-
-
 
     @Override
     public void onEnable() {

@@ -21,19 +21,17 @@ public class FishingListener implements Listener {
         Player player = e.getPlayer();
 
         if(!NPCHandler.hasActiveQuest(player.getUniqueId())) return;
-
         if(!NPCHandler.hasActiveQuestType(QuestTypeEnums.FISHING,player.getUniqueId())) return;
 
         ArrayList<Quest> fishingTypeList = NPCHandler.typeList(QuestTypeEnums.FISHING,player.getUniqueId());
 
-        Item item = (Item) e.getCaught();
-
+        Item fishedFish = (Item) e.getCaught();
 
         for (Quest quest: fishingTypeList) {
 
             FishingType fishingType = (FishingType) quest.getQuestType();
 
-            if(item.getItemStack().getType() == fishingType.getFishToCaught().getType()){
+            if(fishedFish.getItemStack().getType() == fishingType.getFishToCaught().getType()){
                 NPCHandler.questCurrent(fishingType,player);
             }
         }

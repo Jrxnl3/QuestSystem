@@ -27,7 +27,7 @@ import java.util.UUID;
 
 public class NPCHandler implements Listener {
 
-    public static ItemStack[] standartLootTable = {new ItemBuilder(Material.STICK).build(),new ItemBuilder(Material.STONE).build(),new ItemBuilder(Material.DIRT).build()};
+    public static ItemStack[] standardLootTable = {new ItemBuilder(Material.STICK).build(),new ItemBuilder(Material.STONE).build(),new ItemBuilder(Material.DIRT).build()};
 
     public static ArrayList<Quest> typeList(QuestTypeEnums questTypeEnums, UUID playerUUID){
         ArrayList<Quest> genericList = new ArrayList<>();
@@ -77,14 +77,10 @@ public class NPCHandler implements Listener {
         if(questNPC.getCustomName().equals(QuestVillager.VILLAGER_NAME)){
             event.setCancelled(true);
 
-            ArrayList<Quest> playerQuests= new ArrayList<>();
-
             Player p = event.getPlayer();
 
             for (Quest quest: QuestSystem.getQuestSystem().activQuestMultiMap.get(event.getPlayer().getUniqueId())) {
-                playerQuests.add(quest);
 
-                //OPTIC
                 p.sendMessage("====================\n"
                         +"§bTitle: §6" + quest.getTitle() + "\n"
                         +"§bLore: §6" + quest.getLore() + "\n"
