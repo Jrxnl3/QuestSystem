@@ -3,7 +3,7 @@ package de.jinx.questsystem;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import de.jinx.questsystem.command.SpawnNPC;
-import de.jinx.questsystem.handlers.NPCHandler;
+import de.jinx.questsystem.handlers.*;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.*;
 import de.jinx.questsystem.objects.QuestTypes.Quests.CraftingType;
@@ -58,6 +58,10 @@ public final class QuestSystem extends JavaPlugin {
         System.out.println("QuestSystem has started");
 
         getServer().getPluginManager().registerEvents(new NPCHandler(),this);
+        getServer().getPluginManager().registerEvents(new HuntingListener(),this);
+        getServer().getPluginManager().registerEvents(new CraftingListener(),this);
+        getServer().getPluginManager().registerEvents(new FishingListener(),this);
+        getServer().getPluginManager().registerEvents(new GahteringListener(),this);
 
         this.getCommand("npc").setExecutor(new SpawnNPC());
     }

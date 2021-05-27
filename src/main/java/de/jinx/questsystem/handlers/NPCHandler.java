@@ -29,7 +29,7 @@ public class NPCHandler implements Listener {
 
     public static ItemStack[] standartLootTable = {new ItemBuilder(Material.STICK).build(),new ItemBuilder(Material.STONE).build(),new ItemBuilder(Material.DIRT).build()};
 
-    public ArrayList<Quest> typeList(QuestTypeEnums questTypeEnums, UUID playerUUID){
+    public static ArrayList<Quest> typeList(QuestTypeEnums questTypeEnums, UUID playerUUID){
         ArrayList<Quest> genericList = new ArrayList<>();
 
         for (Quest quest: QuestSystem.getQuestSystem().activQuestMultiMap.get(playerUUID)) {
@@ -41,14 +41,14 @@ public class NPCHandler implements Listener {
         return genericList;
     }
 
-    public boolean hasActiveQuest(UUID playerUUID){
+    public static boolean hasActiveQuest(UUID playerUUID){
         if(QuestSystem.getQuestSystem().activQuestMultiMap.get(playerUUID).size() >= 1){
             return true;    //Wenn in der Liste = true
         }else
             return false; //Sonst = false
     }
 
-    public boolean hasActiveQuestType(QuestTypeEnums type,UUID playerUUID){
+    public static boolean hasActiveQuestType(QuestTypeEnums type,UUID playerUUID){
         for (Quest quest: QuestSystem.getQuestSystem().activQuestMultiMap.get(playerUUID)) {
             if (quest.getEnumType() == type){
                 return true;        //Wird bei dem ersten mit dem Type returnen
@@ -57,7 +57,7 @@ public class NPCHandler implements Listener {
         return false;   //Falls es keine gibt wird am Ende erst return.
     }
 
-    public <T extends Type> void questCurrent(T questType, Player player){
+    public static <T extends Type> void questCurrent(T questType, Player player){
         if(questType.getCurrentCount() < questType.getMaxCount()){
             questType.setCurrentCount(questType.getCurrentCount() + 1);
             player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
@@ -109,7 +109,7 @@ public class NPCHandler implements Listener {
         }
     }
 
-
+/*
     //<!-- WAS IST WENN 2 SPIELER DAS EVENT GLEICHZEITIG AUSFÜHREN --!>
     //<!-- SPIELER BEI QUEST IN ARRAYLIST BEI EVENT ABFRAGEN OB SPIELER IN ARRAYLIST?? (PERFORMANCE)--!>
     @EventHandler
@@ -186,5 +186,5 @@ public class NPCHandler implements Listener {
         }
 
     }
-
+*/
 }
