@@ -12,7 +12,7 @@ public class Commands implements CommandExecutor {
         if(label.equalsIgnoreCase("qs") || label.equalsIgnoreCase("questsystem")) {
             if(sender instanceof Player) {
                 Player player = (Player) sender;
-                if(args.length > 0) {
+                if(0 < args.length) {
 
                     if(args[0].equalsIgnoreCase("check")){
                         UtilQuest.questChatCheck(player);

@@ -63,23 +63,28 @@ public class UtilQuest {
                     +"§bTitle: §6" + quest.getTitle() + "\n"
                     +"§bLore: §6" + quest.getLore() + "\n"
                     +"§bShowCaseItem: §6" + quest.getDisplayItem() + "\n"
-                    +"§bShowCaseItemType: §6" + quest.getDisplayItem().getType()+ "\n"
+                    +"§bShowCase*ItemType: §6" + quest.getDisplayItem().getType()+ "\n"
                     +"§bEnumType: §6" + quest.getEnumType() + "\n"
                     +"§bQuestType (Obj): §6" + quest.getQuestType() + "\n"
+                    + "§bRarity: " + quest.getSeltenheit().getName() + "\n"
+                    + "§bGlass Pain: " + quest.getSeltenheit().getGlass_Pane() + "\n"
                     +"§bCoin Reward: §6" + quest.getCoinReward() + "\n"
                     +"§bLootTable: §6" + quest.getLootTable() + "\n"
             );
 
-            if (quest.getQuestType().equals(CraftingType.class)) {
+            p.sendMessage("\n");
+
+            if (quest.getEnumType().equals(QuestTypeEnums.CRAFTING)) {
                 p.sendMessage("§6Crafting Quest!");
-            }else if(quest.getQuestType().equals(FishingType.class)){
+            }else if(quest.getEnumType().equals(QuestTypeEnums.FISHING)){
                 p.sendMessage("§bFishing Quest!");
-            }else if(quest.getQuestType().equals(HuntingType.class)){
+            }else if(quest.getEnumType().equals(QuestTypeEnums.HUNTING)){
                 p.sendMessage("§cHunting Quest!");
-            }else if(quest.getQuestType().equals(GatheringType.class))
+            }else if(quest.getEnumType().equals(QuestTypeEnums.GATHERING))
                 p.sendMessage("§aGathering Quest!");
 
         }
+        p.sendMessage("====================");
     }
 
 }
