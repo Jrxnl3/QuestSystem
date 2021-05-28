@@ -3,6 +3,7 @@ package de.jinx.questsystem.handlers;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import de.jinx.questsystem.objects.QuestTypes.Quests.HuntingType;
+import de.jinx.questsystem.util.UtilQuest;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,20 +23,20 @@ public class HuntingListener implements Listener {
 
         Player player = e.getEntity().getKiller(); //Spieler = Killer
 
-        if(!NPCHandler.hasActiveQuest(player.getUniqueId())) return; //Schauen ob Spieler Quest hat
+        if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return; //Schauen ob Spieler Quest hat
 
-        if(!NPCHandler.hasActiveQuestType(QuestTypeEnums.HUNTING,player.getUniqueId())) return; //Ob Quest = HuntingType
+        if(!UtilQuest.hasActiveQuestType(QuestTypeEnums.HUNTING,player.getUniqueId())) return; //Ob Quest = HuntingType
 
         Entity victim = e.getEntity(); //Entity bekommen
 
-        ArrayList<Quest> huntingList = NPCHandler.typeList(QuestTypeEnums.HUNTING,player.getUniqueId());  //<-- For Spieler mit UUID und HuntingType Quests
+        ArrayList<Quest> huntingList = UtilQuest.typeList(QuestTypeEnums.HUNTING,player.getUniqueId());  //<-- For Spieler mit UUID und HuntingType Quests
 
         for (Quest quest: huntingList) {        //Für alle HuntingQuests der Spieler hat
 
             HuntingType huntingTypeQuest = (HuntingType) quest.getQuestType();
 
             if (huntingTypeQuest.getMobToKill() == victim.getType()) {
-                NPCHandler.questCurrent(huntingTypeQuest,player);
+                UtilQuest.questCurrent(huntingTypeQuest,player);
             }
         }
     }

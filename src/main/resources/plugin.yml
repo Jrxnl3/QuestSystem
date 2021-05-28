@@ -8,3 +8,6 @@ description: A Quest System
 commands:
    npc:
      usage: Spawning a Villager
+   questsystem:
+     aliases:
+       - qs

@@ -1,6 +1,5 @@
 package de.jinx.questsystem.handlers;
 
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -19,12 +18,12 @@ public class QuestVillager {
         questNPC.setVillagerExperience(5); // LEVEL EVENTUELL ÄNDERN
         questNPC.setVillagerType(Villager.Type.TAIGA);
 
-        //NECCESSARY
+        //NECESSARY
         questNPC.setCustomName(VILLAGER_NAME);
         questNPC.setCustomNameVisible(true);
         questNPC.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,Integer.MAX_VALUE,500));
 
-        //Playing Particel
+        //Playing Particle
         questNPC.getWorld().playEffect(questNPC.getLocation(), Effect.MOBSPAWNER_FLAMES,10);
     }
 

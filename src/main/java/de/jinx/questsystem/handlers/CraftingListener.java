@@ -3,6 +3,7 @@ package de.jinx.questsystem.handlers;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import de.jinx.questsystem.objects.QuestTypes.Quests.CraftingType;
+import de.jinx.questsystem.util.UtilQuest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,20 +21,20 @@ public class CraftingListener implements Listener {
 
         Player player = (Player) e.getWhoClicked();
 
-        if(!NPCHandler.hasActiveQuest(player.getUniqueId())) return;
+        if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return;
 
-        if(!NPCHandler.hasActiveQuestType(QuestTypeEnums.CRAFTING,player.getUniqueId())) return;
+        if(!UtilQuest.hasActiveQuestType(QuestTypeEnums.CRAFTING,player.getUniqueId())) return;
 
         ItemStack item = e.getCurrentItem();
 
-        ArrayList<Quest> craftingTypeList = NPCHandler.typeList(QuestTypeEnums.CRAFTING,player.getUniqueId());
+        ArrayList<Quest> craftingTypeList = UtilQuest.typeList(QuestTypeEnums.CRAFTING,player.getUniqueId());
 
         for (Quest quest: craftingTypeList) {
 
             CraftingType craftingType = (CraftingType) quest.getQuestType();
 
             if (craftingType.getItemToCraft().getType() == item.getType()) {
-                NPCHandler.questCurrent(craftingType,player);
+                UtilQuest.questCurrent(craftingType,player);
             }
         }
     }

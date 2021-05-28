@@ -3,6 +3,7 @@ package de.jinx.questsystem.handlers;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import de.jinx.questsystem.objects.QuestTypes.Quests.FishingType;
+import de.jinx.questsystem.util.UtilQuest;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,10 +21,10 @@ public class FishingListener implements Listener {
 
         Player player = e.getPlayer();
 
-        if(!NPCHandler.hasActiveQuest(player.getUniqueId())) return;
-        if(!NPCHandler.hasActiveQuestType(QuestTypeEnums.FISHING,player.getUniqueId())) return;
+        if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return;
+        if(!UtilQuest.hasActiveQuestType(QuestTypeEnums.FISHING,player.getUniqueId())) return;
 
-        ArrayList<Quest> fishingTypeList = NPCHandler.typeList(QuestTypeEnums.FISHING,player.getUniqueId());
+        ArrayList<Quest> fishingTypeList = UtilQuest.typeList(QuestTypeEnums.FISHING,player.getUniqueId());
 
         Item fishedFish = (Item) e.getCaught();
 
@@ -32,7 +33,7 @@ public class FishingListener implements Listener {
             FishingType fishingType = (FishingType) quest.getQuestType();
 
             if(fishedFish.getItemStack().getType() == fishingType.getFishToCaught().getType()){
-                NPCHandler.questCurrent(fishingType,player);
+                UtilQuest.questCurrent(fishingType,player);
             }
         }
 
