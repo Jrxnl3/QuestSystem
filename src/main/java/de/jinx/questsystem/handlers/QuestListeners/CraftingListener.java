@@ -1,4 +1,4 @@
-package de.jinx.questsystem.handlers;
+package de.jinx.questsystem.handlers.QuestListeners;
 
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
@@ -23,11 +23,11 @@ public class CraftingListener implements Listener {
 
         if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return;
 
-        if(!UtilQuest.hasActiveQuestType(QuestTypeEnums.CRAFTING,player.getUniqueId())) return;
+        if(!UtilQuest.hasActiveQuest(QuestTypeEnums.CRAFTING,player.getUniqueId())) return;
 
         ItemStack item = e.getCurrentItem();
 
-        ArrayList<Quest> craftingTypeList = UtilQuest.typeList(QuestTypeEnums.CRAFTING,player.getUniqueId());
+        ArrayList<Quest> craftingTypeList = UtilQuest.getQuestListPlayer(QuestTypeEnums.CRAFTING,player.getUniqueId());
 
         for (Quest quest: craftingTypeList) {
 

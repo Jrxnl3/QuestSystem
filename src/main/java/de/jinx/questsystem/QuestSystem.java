@@ -5,6 +5,10 @@ import com.google.common.collect.Multimap;
 import de.jinx.questsystem.command.Commands;
 import de.jinx.questsystem.command.SpawnNPC;
 import de.jinx.questsystem.handlers.*;
+import de.jinx.questsystem.handlers.QuestListeners.CraftingListener;
+import de.jinx.questsystem.handlers.QuestListeners.FishingListener;
+import de.jinx.questsystem.handlers.QuestListeners.GatheringListener;
+import de.jinx.questsystem.handlers.QuestListeners.HuntingListener;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import de.jinx.questsystem.objects.QuestTypes.Quests.CraftingType;
@@ -54,22 +58,24 @@ public final class QuestSystem extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        questSystem = this;
+
+        //TODO MySQL part
 
         activeQuestMultiMap = ArrayListMultimap.create();
 
         fillHashMap();
 
-        questSystem = this;
         System.out.println("QuestSystem has started");
 
         getServer().getPluginManager().registerEvents(new NPCHandler(),this);
         getServer().getPluginManager().registerEvents(new HuntingListener(),this);
         getServer().getPluginManager().registerEvents(new CraftingListener(),this);
         getServer().getPluginManager().registerEvents(new FishingListener(),this);
-        getServer().getPluginManager().registerEvents(new GahteringListener(),this);
+        getServer().getPluginManager().registerEvents(new GatheringListener(),this);
 
         this.getCommand("npc").setExecutor(new SpawnNPC());
-        this.getCommand("questsystem").setExecutor(new Commands());
+        this.getCommand("quest").setExecutor(new Commands());
     }
 
     @Override

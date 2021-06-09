@@ -1,4 +1,4 @@
-package de.jinx.questsystem.handlers;
+package de.jinx.questsystem.handlers.QuestListeners;
 
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
@@ -25,11 +25,11 @@ public class HuntingListener implements Listener {
 
         if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return; //Schauen ob Spieler Quest hat
 
-        if(!UtilQuest.hasActiveQuestType(QuestTypeEnums.HUNTING,player.getUniqueId())) return; //Ob Quest = HuntingType
+        if(!UtilQuest.hasActiveQuest(QuestTypeEnums.HUNTING,player.getUniqueId())) return; //Ob Quest = HuntingType
 
         Entity victim = e.getEntity(); //Entity bekommen
 
-        ArrayList<Quest> huntingList = UtilQuest.typeList(QuestTypeEnums.HUNTING,player.getUniqueId());  //<-- For Spieler mit UUID und HuntingType Quests
+        ArrayList<Quest> huntingList = UtilQuest.getQuestListPlayer(QuestTypeEnums.HUNTING,player.getUniqueId());  //<-- For Spieler mit UUID und HuntingType Quests
 
         for (Quest quest: huntingList) {        //Für alle HuntingQuests der Spieler hat
 

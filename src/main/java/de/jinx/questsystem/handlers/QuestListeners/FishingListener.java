@@ -1,4 +1,4 @@
-package de.jinx.questsystem.handlers;
+package de.jinx.questsystem.handlers.QuestListeners;
 
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
@@ -22,9 +22,9 @@ public class FishingListener implements Listener {
         Player player = e.getPlayer();
 
         if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return;
-        if(!UtilQuest.hasActiveQuestType(QuestTypeEnums.FISHING,player.getUniqueId())) return;
+        if(!UtilQuest.hasActiveQuest(QuestTypeEnums.FISHING,player.getUniqueId())) return;
 
-        ArrayList<Quest> fishingTypeList = UtilQuest.typeList(QuestTypeEnums.FISHING,player.getUniqueId());
+        ArrayList<Quest> fishingTypeList = UtilQuest.getQuestListPlayer(QuestTypeEnums.FISHING,player.getUniqueId());
 
         Item fishedFish = (Item) e.getCaught();
 

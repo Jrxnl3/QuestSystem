@@ -1,7 +1,6 @@
 package de.jinx.questsystem.objects.QuestTypes;
 
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class Seltenheit {
 

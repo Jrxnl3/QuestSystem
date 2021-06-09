@@ -1,11 +1,6 @@
 package de.jinx.questsystem.handlers;
 
-import de.jinx.questsystem.QuestSystem;
-import de.jinx.questsystem.objects.Quest;
-import de.jinx.questsystem.objects.QuestTypes.Quests.CraftingType;
-import de.jinx.questsystem.objects.QuestTypes.Quests.FishingType;
-import de.jinx.questsystem.objects.QuestTypes.Quests.GatheringType;
-import de.jinx.questsystem.objects.QuestTypes.Quests.HuntingType;
+import de.jinx.questsystem.gui.QuestInv;
 import de.jinx.questsystem.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -17,8 +12,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class NPCHandler implements Listener {
 
-    public static ItemStack[] standardLootTable = {new ItemBuilder(Material.STICK).build(),new ItemBuilder(Material.STONE).build(),new ItemBuilder(Material.DIRT).build()};
-
+    public static ItemStack[] standardLootTable = {
+            new ItemBuilder(Material.STICK).setAmount(3).build(),
+            new ItemBuilder(Material.STONE).setAmount(5).build(),
+            new ItemBuilder(Material.DIRT).setAmount(10).build(),
+            new ItemBuilder(Material.DIAMOND).setAmount(1).build()
+    };
 
     @EventHandler
     public void interact(PlayerInteractAtEntityEvent event){
@@ -31,11 +30,11 @@ public class NPCHandler implements Listener {
 
             Player p = event.getPlayer();
 
+            QuestInv.openInv(p);
         }
     }
 
 /*
-    //<!-- WAS IST WENN 2 SPIELER DAS EVENT GLEICHZEITIG AUSFÜHREN --!>
     //<!-- SPIELER BEI QUEST IN ARRAYLIST BEI EVENT ABFRAGEN OB SPIELER IN ARRAYLIST?? (PERFORMANCE)--!>
     @EventHandler
     public void onKill(EntityDeathEvent e){
