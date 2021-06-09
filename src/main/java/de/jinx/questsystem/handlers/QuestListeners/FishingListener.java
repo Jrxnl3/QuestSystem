@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class FishingListener implements Listener {
 
-
     @EventHandler
     public void onFish(PlayerFishEvent e){
         if(!(e.getCaught() instanceof Item)) return;
@@ -33,7 +32,7 @@ public class FishingListener implements Listener {
             FishingType fishingType = (FishingType) quest.getQuestType();
 
             if(fishedFish.getItemStack().getType() == fishingType.getFishToCaught().getType()){
-                UtilQuest.questCurrent(fishingType,player);
+                UtilQuest.questCurrent(quest,fishingType,player);
             }
         }
 

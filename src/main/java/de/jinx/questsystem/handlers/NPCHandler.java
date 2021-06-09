@@ -20,7 +20,7 @@ public class NPCHandler implements Listener {
     };
 
     @EventHandler
-    public void interact(PlayerInteractAtEntityEvent event){
+    public void QuestNPCInteract(PlayerInteractAtEntityEvent event){
         if(!(event.getRightClicked() instanceof Villager)) return;
 
         Villager questNPC = (Villager) event.getRightClicked();

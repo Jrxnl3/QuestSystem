@@ -36,7 +36,7 @@ public class HuntingListener implements Listener {
             HuntingType huntingTypeQuest = (HuntingType) quest.getQuestType();
 
             if (huntingTypeQuest.getMobToKill() == victim.getType()) {
-                UtilQuest.questCurrent(huntingTypeQuest,player);
+                UtilQuest.questCurrent(quest,huntingTypeQuest,player);
             }
         }
     }

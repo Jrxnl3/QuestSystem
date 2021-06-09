@@ -29,7 +29,8 @@ public final class QuestSystem extends JavaPlugin {
 
     public Multimap<UUID,Quest> activeQuestMultiMap;
 
-    //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST Object[sonst einzel speichern. title,lore,...])
+    //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST refrence from QuestPool[sonst einzel speichern. title,lore,...])
+    //Jede Quest hat eigene ID und dann (UUID, QuestID)  ID nur in MySQL?
 
     private void fillHashMap(){
         activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,new Seltenheit(Material.WHITE_STAINED_GLASS_PANE,"Common"),10,NPCHandler.standardLootTable));

@@ -37,9 +37,9 @@ public class UtilQuest {
 
     public static boolean hasActiveQuest(UUID playerUUID){
         if(QuestSystem.getQuestSystem().activeQuestMultiMap.get(playerUUID).size() >= 1){
-            return true;    //Wenn in der Liste = true
+            return true;
         }
-        return false; //Sonst = false
+        return false;
     }
 
     public static boolean hasActiveQuest(QuestTypeEnums type, UUID playerUUID){
@@ -51,7 +51,7 @@ public class UtilQuest {
         return false;   //Falls es keine gibt wird am Ende erst return.
     }
 
-    public static <T extends Type> void questCurrent(T questType, Player player){
+    public static <T extends Type> void questCurrent(Quest quest, T questType, Player player){
         if(questType.getCurrentCount() < questType.getMaxCount()){
             questType.setCurrentCount(questType.getCurrentCount() + 1);
             player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
@@ -59,6 +59,21 @@ public class UtilQuest {
             player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 5);
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- FINAL QUEST COMPLETE HERE
             player.sendMessage("You completed a Quest! :)");
+            removeQuestFromList(quest,player);
+        }
+    }
+
+    public static <T extends Type> void questCurrent(Quest quest, T questType, Player player, int amount){
+        if(questType.getCurrentCount() < questType.getMaxCount() && questType.getCurrentCount() + amount < questType.getMaxCount()){
+            questType.setCurrentCount(questType.getCurrentCount() + amount);
+            player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
+
+        }else {
+            //TODO MySQL Saving? TESTING Putting the Quest out of the List
+            player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 5);
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- FINAL QUEST COMPLETE HERE
+            player.sendMessage("You completed a Quest! :)");
+            removeQuestFromList(quest,player);
         }
     }
 
@@ -92,4 +107,10 @@ public class UtilQuest {
         p.sendMessage("<|====================|>");
     }
 
+
+    public static void removeQuestFromList(Quest quest, Player player){
+
+        QuestSystem.getQuestSystem().activeQuestMultiMap.remove(player,quest);
+
+    }
 }

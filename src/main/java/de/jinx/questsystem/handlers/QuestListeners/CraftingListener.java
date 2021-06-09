@@ -19,25 +19,28 @@ public class CraftingListener implements Listener {
     public void onCraft(InventoryClickEvent e){
         if(!(e.getSlotType() == InventoryType.SlotType.RESULT)) return;
 
+
         Player player = (Player) e.getWhoClicked();
 
-        if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return;
 
+        if(!UtilQuest.hasActiveQuest(player.getUniqueId())) return;
         if(!UtilQuest.hasActiveQuest(QuestTypeEnums.CRAFTING,player.getUniqueId())) return;
 
+
         ItemStack item = e.getCurrentItem();
+        item.setAmount(e.getCurrentItem().getAmount());
+        item.setItemMeta(e.getCurrentItem().getItemMeta());
+
 
         ArrayList<Quest> craftingTypeList = UtilQuest.getQuestListPlayer(QuestTypeEnums.CRAFTING,player.getUniqueId());
 
         for (Quest quest: craftingTypeList) {
-
             CraftingType craftingType = (CraftingType) quest.getQuestType();
 
             if (craftingType.getItemToCraft().getType() == item.getType()) {
-                UtilQuest.questCurrent(craftingType,player);
+
+                UtilQuest.questCurrent(quest,craftingType,player, item.getAmount());
             }
         }
     }
-
-
 }
