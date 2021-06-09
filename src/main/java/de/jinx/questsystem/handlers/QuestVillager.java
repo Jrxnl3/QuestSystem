@@ -15,13 +15,14 @@ public class QuestVillager {
         Villager questNPC = (Villager) loc.getWorld().spawnEntity(loc, EntityType.VILLAGER);
 
         //COSMETIC
-        questNPC.setVillagerExperience(5); // LEVEL EVENTUELL ÄNDERN
+        questNPC.setVillagerLevel(5);
         questNPC.setVillagerType(Villager.Type.TAIGA);
+        questNPC.setProfession(Villager.Profession.LIBRARIAN);
 
         //NECESSARY
         questNPC.setCustomName(VILLAGER_NAME);
         questNPC.setCustomNameVisible(true);
-        questNPC.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,Integer.MAX_VALUE,500));
+        questNPC.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,Integer.MAX_VALUE,500,true,false));
 
         //Playing Particle
         questNPC.getWorld().playEffect(questNPC.getLocation(), Effect.MOBSPAWNER_FLAMES,10);

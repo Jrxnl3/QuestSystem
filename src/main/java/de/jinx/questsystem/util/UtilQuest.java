@@ -45,20 +45,20 @@ public class UtilQuest {
     public static boolean hasActiveQuest(QuestTypeEnums type, UUID playerUUID){
         for (Quest quest: QuestSystem.getQuestSystem().activeQuestMultiMap.get(playerUUID)) {
             if (quest.getEnumType() == type){
-                return true;        //Wird bei dem ersten mit dem Type returnen
+                return true;
             }
         }
-        return false;   //Falls es keine gibt wird am Ende erst return.
+        return false;
     }
 
     public static <T extends Type> void questCurrent(Quest quest, T questType, Player player){
-        if(questType.getCurrentCount() < questType.getMaxCount()){
+        if(questType.getCurrentCount() + 1 < questType.getMaxCount()){
             questType.setCurrentCount(questType.getCurrentCount() + 1);
             player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
         }else {
             player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 5);
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- FINAL QUEST COMPLETE HERE
-            player.sendMessage("You completed a Quest! :)");
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- TODO: FINAL QUEST COMPLETE HERE
+            player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou completed a Quest! :)");
             removeQuestFromList(quest,player);
         }
     }
@@ -69,10 +69,11 @@ public class UtilQuest {
             player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
 
         }else {
-            //TODO MySQL Saving? TESTING Putting the Quest out of the List
-            player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 5);
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- FINAL QUEST COMPLETE HERE
-            player.sendMessage("You completed a Quest! :)");
+            //TODO MySQL Saving?
+            player.getWorld().playEffect(player.getLocation(), Effect.VILLAGER_PLANT_GROW, 10);
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<--TODO: FINAL QUEST COMPLETE HERE
+            player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou completed the Quest: "+quest.getTitle()+"! :)");
+            player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou've recieved : "+quest.getTitle()+"! :)"); //TODO ITEM RECIEVE
             removeQuestFromList(quest,player);
         }
     }
@@ -109,8 +110,7 @@ public class UtilQuest {
 
 
     public static void removeQuestFromList(Quest quest, Player player){
-
-        QuestSystem.getQuestSystem().activeQuestMultiMap.remove(player,quest);
-
+        System.out.println("Removed Player Form List");
+        QuestSystem.getQuestSystem().activeQuestMultiMap.remove(player.getUniqueId(),quest);
     }
 }

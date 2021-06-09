@@ -29,32 +29,34 @@ public final class QuestSystem extends JavaPlugin {
 
     public Multimap<UUID,Quest> activeQuestMultiMap;
 
+    public static final String PREFIX = "§6[§a§lQ§r§auest§6-§b§lS§r§bystem§6] §r";
+
     //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST refrence from QuestPool[sonst einzel speichern. title,lore,...])
     //Jede Quest hat eigene ID und dann (UUID, QuestID)  ID nur in MySQL?
 
     private void fillHashMap(){
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,new Seltenheit(Material.WHITE_STAINED_GLASS_PANE,"Common"),10,NPCHandler.standardLootTable));
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest(
-                "Pumpkinfan",                                  //<-- Title
-                "Gather 10 Pumpkins",                          //<--Lore
+        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,new Seltenheit(Material.RED_STAINED_GLASS_PANE,"Common"),10,NPCHandler.standardLootTable));
+        /*activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest(
+                "Pumpkinfan",                                       //<-- Title
+                "Gather 10 Pumpkins",                               //<--Lore
 
                 new ItemStack(Material.PUMPKIN),                    //<-- DisplayItem
 
                 new GatheringType(                                  //<--Type
-                        10,                                //<--Wie oft?
+                        10,                                         //<--Wie oft?
                         new ItemStack(Material.PUMPKIN)),           //<-- Item to "Hunt"
 
                 QuestTypeEnums.GATHERING,                           //<-- Enum Type
 
-                new Seltenheit(Material.WHITE_STAINED_GLASS_PANE,   //<-- Seltenheit (Farbe)
-                        "Common"),                            //<-- Name
+                new Seltenheit(Material.RED_STAINED_GLASS_PANE,     //<-- Seltenheit (Farbe)
+                        "Common"),                                  //<-- Name
 
-                5,                                        //<-- Coin Reward
+                5,                                                  //<-- Coin Reward
                 NPCHandler.standardLootTable));                     //<-- LootTable
 
-
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), QuestTypeEnums.FISHING,new Seltenheit(Material.WHITE_STAINED_GLASS_PANE,"Common"),6,NPCHandler.standardLootTable));
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)),QuestTypeEnums.CRAFTING,new Seltenheit(Material.WHITE_STAINED_GLASS_PANE,"Common"),7,NPCHandler.standardLootTable));
+        */
+        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), QuestTypeEnums.FISHING,new Seltenheit(Material.BLUE_STAINED_GLASS_PANE,"Common"),6,NPCHandler.standardLootTable));
+        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)),QuestTypeEnums.CRAFTING,new Seltenheit(Material.YELLOW_STAINED_GLASS_PANE,"Common"),7,NPCHandler.standardLootTable));
     }
 
     @Override

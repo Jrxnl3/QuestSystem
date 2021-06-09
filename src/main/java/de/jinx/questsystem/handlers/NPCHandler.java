@@ -7,7 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class NPCHandler implements Listener {
@@ -20,7 +23,7 @@ public class NPCHandler implements Listener {
     };
 
     @EventHandler
-    public void QuestNPCInteract(PlayerInteractAtEntityEvent event){
+    public void QuestNPCInteract(PlayerInteractEntityEvent event){
         if(!(event.getRightClicked() instanceof Villager)) return;
 
         Villager questNPC = (Villager) event.getRightClicked();
@@ -32,6 +35,12 @@ public class NPCHandler implements Listener {
 
             QuestInv.openInv(p);
         }
+    }
+    @EventHandler
+    public void InvInvincible(InventoryClickEvent e){
+        if(!e.getView().getTitle().equals(QuestInv.TITLE)) return;
+
+        e.setCancelled(true);
     }
 
 /*
