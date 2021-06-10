@@ -76,7 +76,7 @@ public class UtilQuest {
         player.getWorld().playEffect(player.getLocation(), Effect.VILLAGER_PLANT_GROW, 10);
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<--TODO: FINAL QUEST COMPLETE HERE
         player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou completed the Quest: "+quest.getTitle()+"! :)");
-        player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou've recieved : "+quest.getTitle()+"! :)"); //TODO ITEM RECIEVE/UI opens with Items
+        player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou've recieved : "+quest.getCoinReward()+"! :)");
         RewardInv.openRewardUI(player,quest);
         removeQuestFromList(quest,player);
 
