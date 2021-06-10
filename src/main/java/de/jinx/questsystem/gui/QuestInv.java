@@ -42,12 +42,9 @@ public class QuestInv {
                 inv.setItem(20+ i *3,new ItemBuilder(playersQuestsList.get(i).getSeltenheit().getGlass_Pane()).build());
 
                 inv.setItem(27+ i *3,new ItemBuilder(playersQuestsList.get(i).getSeltenheit().getGlass_Pane()).build());
-
-
                 inv.setItem(28+ i *3,new ItemBuilder(Material.PAPER).setName("§6Goal: (§c"+playersQuestsList.get(i).getQuestType().getCurrentCount() + "§6/§a" + playersQuestsList.get(i).getQuestType().getMaxCount()+ "§6)").build());
-
-
                 inv.setItem(29+ i *3,new ItemBuilder(playersQuestsList.get(i).getSeltenheit().getGlass_Pane()).build());
+
             }catch (IndexOutOfBoundsException e){
                 inv.setItem(9 + i *3,new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE).build());
                 inv.setItem(10+ i *3,new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE).build());

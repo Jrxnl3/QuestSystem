@@ -1,6 +1,7 @@
 package de.jinx.questsystem.util;
 
 import de.jinx.questsystem.QuestSystem;
+import de.jinx.questsystem.gui.RewardInv;
 import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import de.jinx.questsystem.objects.QuestTypes.Type;
@@ -56,10 +57,7 @@ public class UtilQuest {
             questType.setCurrentCount(questType.getCurrentCount() + 1);
             player.sendMessage("Goal: (" + questType.getCurrentCount() + "/" + questType.getMaxCount() + ")");
         }else {
-            player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 5);
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<-- TODO: FINAL QUEST COMPLETE HERE
-            player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou completed a Quest! :)");
-            removeQuestFromList(quest,player);
+            complete(player, quest);
         }
     }
 
@@ -70,12 +68,18 @@ public class UtilQuest {
 
         }else {
             //TODO MySQL Saving?
-            player.getWorld().playEffect(player.getLocation(), Effect.VILLAGER_PLANT_GROW, 10);
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<--TODO: FINAL QUEST COMPLETE HERE
-            player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou completed the Quest: "+quest.getTitle()+"! :)");
-            player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou've recieved : "+quest.getTitle()+"! :)"); //TODO ITEM RECIEVE
-            removeQuestFromList(quest,player);
+            complete(player, quest);
         }
+    }
+
+    public static void complete(Player player,Quest quest){
+        player.getWorld().playEffect(player.getLocation(), Effect.VILLAGER_PLANT_GROW, 10);
+        player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,10,1); //<--TODO: FINAL QUEST COMPLETE HERE
+        player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou completed the Quest: "+quest.getTitle()+"! :)");
+        player.sendMessage(QuestSystem.getQuestSystem().PREFIX + "§6 >> §aYou've recieved : "+quest.getTitle()+"! :)"); //TODO ITEM RECIEVE/UI opens with Items
+        RewardInv.openRewardUI(player,quest);
+        removeQuestFromList(quest,player);
+
     }
 
     public static void questChatCheck(Player p){
@@ -107,7 +111,6 @@ public class UtilQuest {
         }
         p.sendMessage("<|====================|>");
     }
-
 
     public static void removeQuestFromList(Quest quest, Player player){
         System.out.println("Removed Player Form List");
