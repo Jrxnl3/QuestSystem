@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class RewardInv {
 
-    public static final String TITLE = "§aREWARD";
+    public static final String TITLE = "§a§lREWARD";
 
     public static void openRewardUI(Player player, Quest quest){
         //Amount wird in ItemMeta gespeichert! sonst nur Material und itemMeta?
