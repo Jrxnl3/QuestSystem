@@ -5,7 +5,6 @@ import de.jinx.questsystem.objects.QuestTypes.Seltenheit;
 import de.jinx.questsystem.objects.QuestTypes.Type;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
 import java.util.Arrays;
 
 public class Quest <T extends Type>{
