@@ -2,6 +2,8 @@ package de.jinx.questsystem;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import de.jinx.questsystem.MySQL.MySQL;
+import de.jinx.questsystem.MySQL.MySQLHelper;
 import de.jinx.questsystem.command.Commands;
 import de.jinx.questsystem.command.SpawnNPC;
 import de.jinx.questsystem.handlers.*;
@@ -13,7 +15,6 @@ import de.jinx.questsystem.objects.Quest;
 import de.jinx.questsystem.objects.QuestTypes.QuestTypeEnums;
 import de.jinx.questsystem.objects.QuestTypes.Quests.CraftingType;
 import de.jinx.questsystem.objects.QuestTypes.Quests.FishingType;
-import de.jinx.questsystem.objects.QuestTypes.Quests.GatheringType;
 import de.jinx.questsystem.objects.QuestTypes.Quests.HuntingType;
 import de.jinx.questsystem.objects.QuestTypes.Seltenheit;
 import org.bukkit.Material;
@@ -31,11 +32,10 @@ public final class QuestSystem extends JavaPlugin {
 
     public static final String PREFIX = "§6[§a§lQ§r§auest§6-§b§lS§r§bystem§6] §r";
 
-    //HASH MAP WITH QUESTS FROM MYSQL (UUID, QUEST refrence from QuestPool[sonst einzel speichern. title,lore,...])
-    //Jede Quest hat eigene ID und dann (UUID, QuestID)  ID nur in MySQL?
+    public static MySQL mySQL;
 
     private void fillHashMap(){
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,new Seltenheit(Material.RED_STAINED_GLASS_PANE,"Common"),10,NPCHandler.standardLootTable));
+        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Creeperslayer","Kill 10 Creepers",new ItemStack(Material.CREEPER_HEAD),new HuntingType(10, EntityType.CREEPER), QuestTypeEnums.HUNTING,new Seltenheit("Common",Material.RED_STAINED_GLASS_PANE),10,NPCHandler.standardLootTable));
         /*activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest(
                 "Pumpkinfan",                                       //<-- Title
                 "Gather 10 Pumpkins",                               //<--Lore
@@ -55,15 +55,22 @@ public final class QuestSystem extends JavaPlugin {
                 NPCHandler.standardLootTable));                     //<-- LootTable
 
         */
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), QuestTypeEnums.FISHING,new Seltenheit(Material.BLUE_STAINED_GLASS_PANE,"Common"),6,NPCHandler.standardLootTable));
-        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)),QuestTypeEnums.CRAFTING,new Seltenheit(Material.YELLOW_STAINED_GLASS_PANE,"Common"),7,NPCHandler.standardLootTable));
+        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Fisherman","Fish 5 Salmons",new ItemStack(Material.FISHING_ROD),new FishingType(5, new ItemStack(Material.SALMON)), QuestTypeEnums.FISHING,new Seltenheit("Common",Material.BLUE_STAINED_GLASS_PANE),6,NPCHandler.standardLootTable));
+        activeQuestMultiMap.put(UUID.fromString("a9fe96e0-d85e-4146-b08d-9735f244a34f"), new Quest("Crafter","Craft 1 Workbench",new ItemStack(Material.CRAFTING_TABLE),new CraftingType(1,new ItemStack(Material.CRAFTING_TABLE)),QuestTypeEnums.CRAFTING,new Seltenheit("Common",Material.YELLOW_STAINED_GLASS_PANE),7,NPCHandler.standardLootTable));
     }
+
 
     @Override
     public void onEnable() {
         questSystem = this;
 
         //TODO MySQL part
+
+
+
+        mySQL = new MySQL("localhost","root","","questsystem");
+        mySQL.connect();
+
 
         activeQuestMultiMap = ArrayListMultimap.create();
 
@@ -88,5 +95,9 @@ public final class QuestSystem extends JavaPlugin {
 
     public static QuestSystem getQuestSystem() {
         return questSystem;
+    }
+
+    public static MySQL getMySQL(){
+        return mySQL;
     }
 }

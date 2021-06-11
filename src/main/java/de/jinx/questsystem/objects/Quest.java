@@ -45,6 +45,25 @@ public class Quest <T extends Type>{
 
         this.displayItem.setItemMeta(this.displayItemMeta);
     }
+    public Quest(String title, String lore, ItemStack displayItem,Seltenheit seltenheit,int coinReward, ItemStack[] lootTable) {
+        this.title = title;
+
+        this.lore = lore;
+
+        this.displayItem = displayItem;
+        this.displayItemMeta = displayItem.getItemMeta();
+        this.displayItemMeta.setDisplayName(title);
+        this.displayItemMeta.setLore(Arrays.asList(lore));
+
+        this.seltenheit = seltenheit;
+        this.displayItemMeta.setLore(Arrays.asList(this.displayItemMeta.getLore() + "\n" + seltenheit.getName()));
+
+
+        this.coinReward = coinReward;
+        this.lootTable = lootTable;
+
+        this.displayItem.setItemMeta(this.displayItemMeta);
+    }
 
     public String getTitle() {
         return title;

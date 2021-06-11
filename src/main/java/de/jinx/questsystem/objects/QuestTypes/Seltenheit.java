@@ -7,7 +7,7 @@ public class Seltenheit {
     Material glass_pane;
     String name;
 
-    public Seltenheit(Material glass_pane, String name) {
+    public Seltenheit(String name,Material glass_pane) {
         this.glass_pane = glass_pane;
         this.name = name;
     }
