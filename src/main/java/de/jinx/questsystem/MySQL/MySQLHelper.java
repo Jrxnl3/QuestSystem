@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 public class MySQLHelper {
 
-    //TODO CHECK IF WORKING
+    //TODO: CHECK IF WORKING
 
     public static Quest getRandomQuest() throws SQLException {
 

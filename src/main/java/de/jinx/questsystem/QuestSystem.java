@@ -64,8 +64,7 @@ public final class QuestSystem extends JavaPlugin {
     public void onEnable() {
         questSystem = this;
 
-        //TODO MySQL part
-
+        //TODO MySQL Vorhanden: Random Generieren aus Pool
 
 
         mySQL = new MySQL("localhost","root","","questsystem");
